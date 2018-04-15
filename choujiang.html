@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <title>2018有限公司幸运员工头像抽奖代码</title>
+ <link rel="stylesheet" type="text/css" href="css/style.css">
+ <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+<!-- /*背景*/ -->
+<div class="boy">
+<!-- /*标题*/ -->
+  <h2>2018公司年会抽奖</h2>
+  <!-- /*中间*/ -->
+
+    <!-- /*左边*/ -->
+  <div class="top">
+    <div class="center">
+    <!-- /*奖项选项*/ -->
+    <div class="title">
+      <span>抽取奖项</span>
+      <select class="select1">
+        <option value ="请选择">请选择</option>
+        <option value ="一等奖">一等奖</option>
+        <option value ="二等奖">二等奖</option>
+        <option value="三等奖">三等奖</option>
+      </select>
+    </div>
+    <div class="two">
+     <!-- /*变换的奖项*/ -->
+      <div class="jiang">
+        <div class="im">
+
+        </div>
+        <p class="p1">奖项</p>
+      </div>
+      <!-- /*变换的姓名*/ -->
+      <div class="shu">
+      <div style="background-color: #fff;">
+        <div class="shan">
+
+        </div>
+      </div>
+        <p class="p2">姓名</p>
+      </div>
+    </div>
+    <!-- /*选取人数*/ -->
+    <div class="sub">
+      <p>
+        <span>一次抽取</span>
+        <select class="select2">
+          <option value ="1" selected="selected">1</option>
+          <option value ="2">2</option>
+          <option value ="3">3</option>
+          <option value ="4">4</option>
+          <option value ="5">5</option>
+          <option value ="6">6</option>
+          <option value ="7">7</option>
+          <option value ="8">8</option>
+          <option value ="9">9</option>
+          <option value ="10">10</option>
+        </select>
+        <span>人</span>
+      </p>
+      <!-- /*点击抽奖*/ -->
+      <p>
+        <input type="button" id="btn" name="" value="开始抽奖" onclick="start()">
+      </p>
+    </div>
+    </div>
+    <!-- /*右边*/ -->
+    <div class="huo">
+      <p>获奖名单</p>
+      <div class="jt">
+        <div style="width: 50px;height: 50px;">头像</div>
+        <div style="width: 64px;">获奖人员</div>
+        <div>奖项</div>
+      </div>
+      <hr>
+      <div class="ming">
+          <ul class="ul-list">
+           
+          </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+
+  var xinm = new Array();
+  xinm[0] = "img/1.jpg"
+  xinm[1] = "img/2.jpg"
+  xinm[2] = "img/3.jpg"
+  xinm[3] = "img/4.jpg"
+  xinm[4] = "img/5.jpg"
+  xinm[5] = "img/6.jpg"
+  xinm[6] = "img/1.jpg"
+  xinm[7] = "img/2.jpg"
+  xinm[8] = "img/3.jpg"
+  xinm[9] = "img/4.jpg"
+  xinm[10] = "img/5.jpg"
+  xinm[11] = "img/6.jpg"
+
+  var phone = new Array();
+  phone[0] = "王尼玛"
+  phone[1] = "张全蛋"
+  phone[2] = "纸巾老撕"
+  phone[3] = "王铁柱"
+  phone[4] = "田二妞"
+  phone[5] = "唐马儒"
+  phone[6] = "张三"
+  phone[7] = "李四"
+  phone[8] = "王二麻子"
+  phone[9] = "咯咯咯"
+  phone[10] = "一二三"
+  phone[11] = "四五六"
+
+  
+
+
+
+ 
+
+
+
+
+// 变换奖项
+function ch(){
+  var Sval=$(".select1").val();
+  $(".p1").html(Sval);
+  $("#btn").val("开始抽奖")
+  if(Sval==="一等奖"){
+    $(".im").css({
+      "background":"url(img/01.jpg) no-repeat 0 0",
+      "background-size":"cover"
+    })
+  }
+  if(Sval==="二等奖"){
+    $(".im").css({
+      "background":"url(img/02.jpg) no-repeat 0 0",
+      "background-size":"cover"
+    })
+  }
+  if(Sval==="三等奖"){
+    $(".im").css({
+      "background":"url(img/03.jpg) no-repeat 0 0",
+      "background-size":"cover"
+    })
+  }
+  if(Sval==="请选择"){
+    $(".im").css({
+      "background":"url(img/04.jpg) no-repeat 0 0",
+      "background-size":"cover"
+    })
+  }
+}
+
+$(".select1").change(function(){
+  ch();
+
+})
+
+//设置单次抽奖人数
+function ch2(){
+  var S2val=$(".select2").val();
+  
+}
+
+$(".select2").change(function(){
+  ch2();
+})
+
+
+
+
+
+var nametxt = $('.shan');
+var phonetxt = $('.p2');
+var pcount = xinm.length-1;//参加人数
+var runing = true;
+var trigger = true;
+var num = 0;
+
+
+
+  // 开始停止
+function start() {
+ var Sval=$(".select1").val();
+ var S2val=$(".select2").val();
+
+ if(Sval==="请选择"){
+      $("#btn").val("请进行奖项设置")
+
+ }else{
+
+ var Lotterynumber=S2val
+  if (runing) {
+    
+      runing = false;
+      $('#btn').val('停止');
+      startNum()
+
+  } else {
+    $('#btn').val('自动抽取中('+ Lotterynumber+')');
+    zd();
+  }
+  }
+}
+
+// 开始抽奖
+
+function startLuck() {
+  runing = false;
+  startNum()
+}
+
+// 循环参加名单
+function startNum() {
+  num = Math.floor(Math.random() * pcount);
+  nametxt.css('background-image','url('+xinm[num]+')');
+  phonetxt.html(phone[num]);
+  t = setTimeout(startNum, 0);
+}
+
+// 停止跳动
+function stop() {
+  pcount = xinm.length-1;
+  clearInterval(t);
+  t = 0;
+}
+
+// 打印中奖人
+
+function zd() {
+ var Sval=$(".select1").val();
+ var S2val=$(".select2").val();
+ var Lotterynumber=S2val
+  if (trigger) {
+
+    trigger = false;
+    var i = 0;
+
+    if ( pcount >= Lotterynumber ) {
+      stopTime = window.setInterval(function () {
+        if (runing) {
+          runing = false;
+          startNum();
+        } else {
+          runing = true;
+          stop();
+
+          i++;
+          Lotterynumber--;
+
+          $('#btn').val('自动抽取中('+ Lotterynumber+')');
+
+          if ( i == S2val) {
+            console.log("抽奖结束");
+            window.clearInterval(stopTime);
+            $('#btn').val("开始");
+            Lotterynumber = S2val;
+            trigger = true;
+          };
+          //打印中奖者名单
+          $('.ul-list').prepend("<li><div class='list-img' style='background-image:url("+xinm[num]+")'></div><div class='luckuserName'>"+phone[num]+"</div><div class='jj'>"+Sval+"</div></li>");
+         
+          //将已中奖者从数组中"删除",防止二次中奖
+          xinm.splice($.inArray(xinm[num], xinm), 1);
+          phone.splice($.inArray(phone[num], phone), 1);
+        }
+      },1000);
+    };
+  }
+}
+
+
+
+
+
+
+// $(function () {
+//   nametxt.css('background-image','url('+xinm[0]+')');
+//   phonetxt.html(phone[0]);
+// });
+
+
+
+
+</script>
+</body>
+</html>
